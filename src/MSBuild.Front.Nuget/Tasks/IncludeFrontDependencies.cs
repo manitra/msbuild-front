@@ -1,4 +1,4 @@
-﻿namespace MSBuild.Front.Tasks
+﻿namespace MSBuild.Front.Nuget.Tasks
 {
     using System;
     using System.Collections.Generic;

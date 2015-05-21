@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="IncludeFrontDependencies" AssemblyFile="..\lib\net40\MSBuild.Front.Nuget.dll" Condition="Exists('$(TargetDir)MSBuild.Front.Nuget.dll')" />
+  <Target Name="CopyFrontEndAssets" AfterTargets="Build" >
+    <IncludeFrontDependencies ProjectPath="$(ProjectPath)" Condition="Exists('$(TargetDir)MSBuild.Front.Nuget.dll')" />
+  </Target>
+</Project>

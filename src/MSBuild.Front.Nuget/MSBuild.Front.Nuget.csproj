@@ -7,8 +7,8 @@
     <ProjectGuid>{CE8B0479-B9E6-4DD6-81FE-9BF332FEADF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MSBuild.Front</RootNamespace>
-    <AssemblyName>MSBuild.Front</AssemblyName>
+    <RootNamespace>MSBuild.Front.Nuget</RootNamespace>
+    <AssemblyName>MSBuild.Front.Nuget</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Build\MSBuild.Front.targets" />
-    <None Include="MSBuild.Front.nuspec" />
+    <None Include="MSBuild.Front.Nuget.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
