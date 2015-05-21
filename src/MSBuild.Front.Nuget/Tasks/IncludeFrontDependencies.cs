@@ -9,11 +9,20 @@
     using Microsoft.Build.Framework;
     using Microsoft.Build.Utilities;
 
+    using MSBuild.Front.Nuget.IO;
+
     /// <summary>
     /// For each dependencies of a given project, this task creates a symlink to its front-end modules folder right inside the target project 'app' folder
     /// </summary>
     public class IncludeFrontDependencies : Task
     {
+        private readonly ILinkUtil _linkUtil;
+
+        public IncludeFrontDependencies(ILinkUtil linkUtil = null)
+        {
+            _linkUtil = linkUtil ?? new LinkUtil();
+        }
+
         /// <summary>
         /// Should contains the absolute path to the project file (csproj) for which you want to include front end dependencies
         /// </summary>
@@ -45,7 +54,7 @@
                 foreach (var directory in Directory.GetDirectories(sourceDir, "*", SearchOption.TopDirectoryOnly))
                 {
                     var shortDirectoryName = Path.GetFileName(directory);
-                    CreateLink(Path.Combine(destDir, shortDirectoryName), directory);
+                    _linkUtil.CreateLink(Path.Combine(destDir, shortDirectoryName), directory);
                     File.AppendAllText(ignoreFile, shortDirectoryName + Environment.NewLine);
                 }
             }
@@ -98,40 +107,5 @@
             }
         }
 
-        /// <summary>
-        /// Creates a symbolic links at <paramref name="link"/> which points to <paramref name="source"/>
-        /// <remarks>
-        /// If <paramref name="link"/> points to an existing folder, that folder will be deleted!
-        /// </remarks>
-        /// </summary>
-        /// <param name="link">The full name of the link</param>
-        /// <param name="source">The full name of the source</param>
-        private static void CreateLink(string link, string source)
-        {
-            var absoluteLink = Path.GetFullPath(link);
-            var absoluteSource = Path.GetFullPath(source);
-            if (Directory.Exists(link)) Directory.Delete(link, true);
-
-            try
-            {
-                CreateSymbolicLink(absoluteLink, absoluteSource, SymbolicLink.Directory);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(
-                    "[ERROR] Could not invoke kernel32.CreateSymbolicLink. Probable causes are: UAC is active, the current OS is not Windows or target hard drive is full",
-                    ex);
-            }
-        }
-
-        [DllImport("kernel32.dll")]
-        private static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
-
-        private enum SymbolicLink
-        {
-            // ReSharper disable once UnusedMember.Local
-            File = 0,
-            Directory = 1
-        }
     }
 }

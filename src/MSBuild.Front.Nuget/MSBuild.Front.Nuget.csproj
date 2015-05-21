@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\ILinkUtil.cs" />
+    <Compile Include="IO\LinkUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\IncludeFrontDependencies.cs" />
   </ItemGroup>
