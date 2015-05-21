@@ -1,0 +1,10 @@
+# VS generated and user files
+obj
+bin
+*.user
+*.suo
+
+# Packages
+packages
+node_modules
+bower_modules
