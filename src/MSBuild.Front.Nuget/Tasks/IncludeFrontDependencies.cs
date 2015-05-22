@@ -18,9 +18,14 @@
     {
         private readonly ILinkUtil _linkUtil;
 
-        public IncludeFrontDependencies(ILinkUtil linkUtil = null)
+        public IncludeFrontDependencies()
+            : this(new LinkUtil())
         {
-            _linkUtil = linkUtil ?? new LinkUtil();
+        }
+
+        public IncludeFrontDependencies(ILinkUtil linkUtil)
+        {
+            _linkUtil = linkUtil;
         }
 
         /// <summary>
@@ -37,14 +42,14 @@
             if (!Directory.Exists(destDir)) Directory.CreateDirectory(destDir);
             File.WriteAllText(ignoreFile, ".gitignore" + Environment.NewLine);
 
-            //Note that we don't handle recursion here because
-            //the nested dependancies have been built already
-            //which means their respective dependancies
-            //will be in their own app folder
+            // Note that we don't handle recursion here because
+            // the nested dependancies have been built already
+            // which means their respective dependancies
+            // will be in their own app folder
             foreach (var sourceDir in GetSourceDirs(ProjectPath))
             {
-                //just means that there is no "app" folder in the referenced project
-                //which means it's not a MSBuild.Front-ready project
+                // just means that there is no "app" folder in the referenced project
+                // which means it's not a MSBuild.Front-ready project
                 if (!Directory.Exists(sourceDir))
                 {
                     Log.LogMessage(MessageImportance.Low, "Skipping '{0}' because it doesn't exist", sourceDir);
