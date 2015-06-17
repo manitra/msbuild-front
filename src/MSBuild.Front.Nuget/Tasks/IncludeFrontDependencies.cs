@@ -56,11 +56,15 @@
                     continue;
                 }
 
-                foreach (var directory in Directory.GetDirectories(sourceDir, "*", SearchOption.TopDirectoryOnly))
+                foreach (var item in Directory.GetFileSystemEntries(sourceDir, "*", SearchOption.TopDirectoryOnly))
                 {
-                    var shortDirectoryName = Path.GetFileName(directory);
-                    _linkUtil.CreateLink(Path.Combine(destDir, shortDirectoryName), directory, SymbolicLinkType.Directory);
-                    File.AppendAllText(ignoreFile, shortDirectoryName + Environment.NewLine);
+                    var shortName = Path.GetFileName(item);
+                    _linkUtil.CreateLink(
+                        Path.Combine(destDir, shortName), 
+                        item, 
+                        Directory.Exists(item) ? SymbolicLinkType.Directory : SymbolicLinkType.File
+                    );
+                    File.AppendAllText(ignoreFile, shortName + Environment.NewLine);
                 }
             }
 
