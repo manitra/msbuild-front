@@ -10,6 +10,7 @@
         /// </summary>
         /// <param name="link">The full name of the link</param>
         /// <param name="source">The full name of the source</param>
-        void CreateLink(string link, string source);
+        /// <param name="type">The type of link to build</param>
+        void CreateLink(string link, string source, SymbolicLinkType type);
     }
 }

@@ -16,7 +16,7 @@ if ERRORLEVEL 1 goto error
 echo Pushing the package ...
 %git% tag -a nuget-%version% -m "Nuget package version %version%"
 if ERRORLEVEL 1 goto error
-%nuget% push MSBuild.Front.Nuget\bin\MSBuild.Front.%version%.nupkg
+rem %nuget% push MSBuild.Front.Nuget\bin\MSBuild.Front.%version%.nupkg
 if ERRORLEVEL 1 goto error
 %git% push --tags
 if ERRORLEVEL 1 goto error

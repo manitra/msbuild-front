@@ -1,8 +1,9 @@
-# VS generated and user files
+# IDE generated files
 obj
 bin
 *.user
 *.suo
+*.userprefs
 
 # Packages
 packages

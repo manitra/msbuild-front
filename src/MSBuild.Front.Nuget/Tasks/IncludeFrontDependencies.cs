@@ -59,7 +59,7 @@
                 foreach (var directory in Directory.GetDirectories(sourceDir, "*", SearchOption.TopDirectoryOnly))
                 {
                     var shortDirectoryName = Path.GetFileName(directory);
-                    _linkUtil.CreateLink(Path.Combine(destDir, shortDirectoryName), directory);
+                    _linkUtil.CreateLink(Path.Combine(destDir, shortDirectoryName), directory, SymbolicLinkType.Directory);
                     File.AppendAllText(ignoreFile, shortDirectoryName + Environment.NewLine);
                 }
             }

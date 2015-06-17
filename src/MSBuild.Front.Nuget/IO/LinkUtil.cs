@@ -13,7 +13,7 @@
         /// <summary>
         /// <see cref="ILinkUtil.CreateLink"/>
         /// </summary>
-        public void CreateLink(string link, string source)
+        public void CreateLink(string link, string source, SymbolicLinkType type)
         {
             var absoluteLink = Path.GetFullPath(link);
             var absoluteSource = Path.GetFullPath(source);
@@ -21,7 +21,7 @@
 
             try
             {
-                CreateSymbolicLink(absoluteLink, absoluteSource, SymbolicLink.Directory);
+                CreateSymbolicLink(absoluteLink, absoluteSource, type);
             }
             catch (Exception ex)
             {
@@ -32,14 +32,7 @@
         }
 
         [DllImport("kernel32.dll")]
-        private static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
-
-        private enum SymbolicLink
-        {
-            // ReSharper disable once UnusedMember.Local
-            File = 0,
-            Directory = 1
-        }
-         
+        private static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLinkType dwFlags);
     }
+
 }
