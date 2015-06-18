@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\DirectoryUtil.cs" />
+    <Compile Include="IO\IDirectoryUtil.cs" />
     <Compile Include="IO\ILinkUtil.cs" />
     <Compile Include="IO\LinkUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
