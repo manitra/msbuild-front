@@ -4,7 +4,7 @@ cd %~dp0\..\src
 set msbuild=C:\Windows\Microsoft.Net\Framework64\v4.0.30319\MSBuild.exe
 set nuget=nuget
 set git=git
-set version=0.6.1.2
+set version=0.7.0.0
 set config=Release
 
 echo Building the package ...
