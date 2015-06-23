@@ -1,11 +1,16 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MSBuild.Front.Nuget.IO
 {
     public class DirectoryUtil : IDirectoryUtil
     {
-        public void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        public void DirectoryCopy(string sourceDirName, string destDirName, string excludedFolderPattern, bool copySubDirs)
         {
+            if (Regex.IsMatch(sourceDirName, excludedFolderPattern))
+            {
+                return;
+            }
             // Get the subdirectories for the specified directory.
             var dir = new DirectoryInfo(sourceDirName);
             var dirs = dir.GetDirectories();
@@ -37,7 +42,7 @@ namespace MSBuild.Front.Nuget.IO
                 foreach (DirectoryInfo subdir in dirs)
                 {
                     string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                    DirectoryCopy(subdir.FullName, temppath, excludedFolderPattern, copySubDirs);
                 }
             }
         }

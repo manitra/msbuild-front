@@ -12,7 +12,8 @@ namespace MSBuild.Front.Nuget.IO
         /// </summary>
         /// <param name="sourceDirName">The full path of the source directory</param>
         /// <param name="destDirName">The full path of the destination directory</param>
+        /// <param name="excludedFolderPattern">Regex pattern for excluded folders</param>
         /// <param name="copySubDirs">Whether to copy sub directories</param>
-        void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs);
+        void DirectoryCopy(string sourceDirName, string destDirName, string excludedFolderPattern, bool copySubDirs);
     }
 }

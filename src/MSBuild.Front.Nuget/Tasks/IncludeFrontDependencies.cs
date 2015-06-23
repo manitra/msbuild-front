@@ -59,6 +59,8 @@ namespace MSBuild.Front.Nuget.Tasks
             new LinkFolder() { Folder = "tests\\util", Type = LinkType.Symlink }
         };
 
+        private const string ExcludedFolderPattern = ".*node_modules.*";
+
         public override bool Execute()
         {
             var referencedDirs = GetReferencedDirs(ProjectPath).ToList();
@@ -102,7 +104,7 @@ namespace MSBuild.Front.Nuget.Tasks
                         {
                             if (Directory.Exists(item))
                             {
-                                _directoryUtil.DirectoryCopy(item, desItem, true);
+                                _directoryUtil.DirectoryCopy(item, desItem, ExcludedFolderPattern, true);
                             }
                             else
                             {
