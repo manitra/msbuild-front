@@ -50,6 +50,8 @@ namespace MSBuild.Front.Nuget.Tasks
         [Required]
         public string ProjectPath { get; set; }
 
+        public string Configuration { get; set; }
+
         private readonly LinkFolder[] LinkedFolders = new LinkFolder[5]
         {
             new LinkFolder() { Folder = "app", Type = LinkType.Symlink },
@@ -92,15 +94,7 @@ namespace MSBuild.Front.Nuget.Tasks
                     {
                         var shortName = Path.GetFileName(item);
                         var desItem = Path.Combine(destDir, shortName);
-                        if (linkFolder.Type == LinkType.Symlink)
-                        {
-                            _linkUtil.CreateLink(
-                                desItem,
-                                item,
-                                Directory.Exists(item) ? SymbolicLinkType.Directory : SymbolicLinkType.File
-                                );
-                        }
-                        else if (linkFolder.Type == LinkType.Copy)
+                        if (linkFolder.Type == LinkType.Copy || string.Equals(Configuration, "release", StringComparison.OrdinalIgnoreCase))
                         {
                             if (Directory.Exists(item))
                             {
@@ -110,6 +104,14 @@ namespace MSBuild.Front.Nuget.Tasks
                             {
                                 File.Copy(item, desItem, true);
                             }
+                        }
+                        else if (linkFolder.Type == LinkType.Symlink)
+                        {
+                            _linkUtil.CreateLink(
+                                desItem,
+                                item,
+                                Directory.Exists(item) ? SymbolicLinkType.Directory : SymbolicLinkType.File
+                                );
                         }
                         File.AppendAllText(ignoreFile, shortName + Environment.NewLine);
                     }

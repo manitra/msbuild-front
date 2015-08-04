@@ -2,6 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="IncludeFrontDependencies" AssemblyFile="MSBuild.Front.Nuget.dll" />
   <Target Name="CopyFrontEndAssets" AfterTargets="Build" >
-    <IncludeFrontDependencies ProjectPath="$(ProjectPath)" />
+    <IncludeFrontDependencies ProjectPath="$(ProjectPath)" Configuration="$(Configuration)"/>
   </Target>
 </Project>
