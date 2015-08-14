@@ -45,6 +45,8 @@
     <Compile Include="IO\ILinkUtil.cs" />
     <Compile Include="IO\LinkUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\BaseFrontDependencies.cs" />
+    <Compile Include="Tasks\CleanFrontDependencies.cs" />
     <Compile Include="Tasks\IncludeFrontDependencies.cs" />
     <Compile Include="IO\SymbolicLinkType.cs" />
   </ItemGroup>

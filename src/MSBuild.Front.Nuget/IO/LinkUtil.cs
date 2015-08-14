@@ -17,7 +17,6 @@
         {
             var absoluteLink = Path.GetFullPath(link);
             var absoluteSource = Path.GetFullPath(source);
-            if (Directory.Exists(link)) Directory.Delete(link, true);
 
             try
             {

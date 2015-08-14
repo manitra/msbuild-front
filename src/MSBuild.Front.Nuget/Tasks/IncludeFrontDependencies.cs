@@ -5,7 +5,6 @@ namespace MSBuild.Front.Nuget.Tasks
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Runtime.InteropServices;
     using System.Xml.Linq;
 
     using Microsoft.Build.Framework;
@@ -16,52 +15,14 @@ namespace MSBuild.Front.Nuget.Tasks
     /// <summary>
     /// For each dependencies of a given project, this task creates a symlink to its front-end modules folder right inside the target project 'app' folder
     /// </summary>
-    public class IncludeFrontDependencies : Task
+    public class IncludeFrontDependencies : BaseFrontDependencies
     {
-        private readonly ILinkUtil _linkUtil;
-        private readonly IDirectoryUtil _directoryUtil;
-
         public IncludeFrontDependencies()
-            : this(new LinkUtil(), new DirectoryUtil())
+            : base(new LinkUtil(), new DirectoryUtil())
         {
         }
-
-        public IncludeFrontDependencies(ILinkUtil linkUtil, IDirectoryUtil directoryUtil)
-        {
-            _linkUtil = linkUtil;
-            _directoryUtil = directoryUtil;
-        }
-
-        private enum LinkType
-        {
-            Copy = 0,
-            Symlink = 1
-        }
-
-        private class LinkFolder
-        {
-            public string Folder { get; set; }
-            public LinkType Type { get; set; }
-        }
-
-        /// <summary>
-        /// Should contains the absolute path to the project file (csproj) for which you want to include front end dependencies
-        /// </summary>
-        [Required]
-        public string ProjectPath { get; set; }
 
         public string Configuration { get; set; }
-
-        private readonly LinkFolder[] LinkedFolders = new LinkFolder[5]
-        {
-            new LinkFolder() { Folder = "app", Type = LinkType.Symlink },
-            new LinkFolder() { Folder = "build", Type = LinkType.Copy },
-            new LinkFolder() { Folder = "tests\\unit-tests", Type = LinkType.Symlink },
-            new LinkFolder() { Folder = "tests\\e2e-tests", Type = LinkType.Symlink },
-            new LinkFolder() { Folder = "tests\\util", Type = LinkType.Symlink }
-        };
-
-        private const string ExcludedFolderPattern = ".*node_modules.*";
 
         public override bool Execute()
         {
