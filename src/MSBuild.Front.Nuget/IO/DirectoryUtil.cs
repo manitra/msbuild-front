@@ -33,7 +33,19 @@ namespace MSBuild.Front.Nuget.IO
             foreach (FileInfo file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, true);
+                var destFile = new FileInfo(temppath);
+
+                if (destFile.Exists)
+                {
+                    if (destFile.LastWriteTime < file.LastWriteTime)
+                    {
+                        file.CopyTo(temppath, true);
+                    }
+                }
+                else
+                {
+                    file.CopyTo(temppath);
+                }
             }
 
             // If copying subdirectories, copy them and their contents to new location. 
