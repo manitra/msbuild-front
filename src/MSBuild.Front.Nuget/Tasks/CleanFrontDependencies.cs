@@ -23,6 +23,8 @@ namespace MSBuild.Front.Nuget.Tasks
             {
                 var destDir = Path.Combine(projectDir, linkFolder.Folder);
 
+                if (!Directory.Exists(destDir))
+                    continue;
                 //get all child entries
                 foreach (var item in Directory.GetFileSystemEntries(destDir, "*", SearchOption.TopDirectoryOnly))
                 {
