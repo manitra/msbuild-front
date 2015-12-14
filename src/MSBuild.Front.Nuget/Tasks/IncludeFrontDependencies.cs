@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MSBuild.Front.Nuget.Tasks
 {
@@ -63,7 +64,8 @@ namespace MSBuild.Front.Nuget.Tasks
                             }
                             else
                             {
-                                File.Copy(item, desItem, true);
+                                if(!Regex.IsMatch(item, ExcludedFolderPattern))
+                                    File.Copy(item, desItem, true);
                             }
                         }
                         else if (linkFolder.Type == LinkType.Symlink)
