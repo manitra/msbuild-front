@@ -28,7 +28,8 @@ namespace MSBuild.Front.Nuget.Tasks
             new LinkFolder() { Folder = "tests\\util", Type = LinkType.Symlink }
         };
 
-        protected const string ExcludedFolderPattern = ".*(node_modules|\\.gitignore).*";
+        protected const string ExcludedFolderPattern = ".*node_modules.*";
+        protected const string ExcludedFilePattern = ".*\\.gitignore.*";
 
         protected BaseFrontDependencies()
             : this(new LinkUtil(), new DirectoryUtil())

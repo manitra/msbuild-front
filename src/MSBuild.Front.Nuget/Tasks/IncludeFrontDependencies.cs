@@ -64,7 +64,7 @@ namespace MSBuild.Front.Nuget.Tasks
                             }
                             else
                             {
-                                if(!Regex.IsMatch(item, ExcludedFolderPattern))
+                                if (!Regex.IsMatch(item, ExcludedFilePattern))
                                     File.Copy(item, desItem, true);
                             }
                         }

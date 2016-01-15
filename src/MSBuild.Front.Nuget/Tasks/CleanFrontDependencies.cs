@@ -32,7 +32,16 @@ namespace MSBuild.Front.Nuget.Tasks
                     {
                         if (Directory.Exists(item))
                         {
-                            Directory.Delete(item, System.IO.File.GetAttributes(item).HasFlag(FileAttributes.ReparsePoint) == false);
+                            try
+                            {
+                                Directory.Delete(item,
+                                    System.IO.File.GetAttributes(item).HasFlag(FileAttributes.ReparsePoint) == false);
+                            }
+                            catch
+                            {
+                                //temporary solution to deal with deleting folder with long path.
+                                Log.LogWarning("There was an error deleting folders. It could be that the path is too long ( 'node_modules' folder )");
+                            }
                         }
                         if (File.Exists(item))
                             File.Delete(item);
